@@ -1,6 +1,8 @@
-import config from "#config";
-import Iron from "@hapi/iron";
-import * as jose from "jose";
+import { parse } from 'node:url'
+import * as Iron from '@hapi/iron'
+
+// import { createRemoteJWKSet, jwtVerify } from 'jose'
+import * as jose from 'jose'
 
 export default async (req, res) => {
   const {
@@ -9,24 +11,25 @@ export default async (req, res) => {
     AUTH0_CLIENT_ID,
     AUTH0_CLIENT_SECRET,
     AUTH0_COOKIE_NAME,
-  } = config;
+  } = process.env;
 
-  const params = new URLSearchParams(req.url);
+  const query = parse(req.url, true).query
 
-  if (params.get("error")) {
-    throw new Error(params.get("error"));
+  if (query?.error || !query.code) {
+    throw new Error(String(query.message))
   }
+  const body = JSON.stringify({
+    grant_type: "authorization_code",
+    client_id: AUTH0_CLIENT_ID,
+    client_secret: AUTH0_CLIENT_SECRET,
+    code: query.code,
+    redirect_uri: `${AUTH0_BASE_URL}/api/auth/callback`,
+  }).toString()
 
   const data = await fetch(`${AUTH0_ISSUER_BASE_URL}/oauth/token`, {
     method: "POST",
     headers: { "Content-type": "application/json" },
-    body: JSON.stringify({
-      grant_type: "authorization_code",
-      client_id: AUTH0_CLIENT_ID,
-      client_secret: AUTH0_CLIENT_SECRET,
-      code: params.get("code"),
-      redirect_uri: `${AUTH0_BASE_URL}/api/auth/callback`,
-    }).toString(),
+    body
   });
 
   const { access_token, id_token, scope, expires_in, token_type } =
@@ -59,7 +62,7 @@ export default async (req, res) => {
   date.setDate(date.getDate() + 1);
 
   res.writeHead(302, {
-    "Set-cookie": `${AUTH0_COOKIE_NAME}=${sealedCookie}; Path=/; Secure; HttpOnly; SameSite=Lax; Expires=${date.toUTCString()}`,
+    "Set-cookie": `${AUTH0_COOKIE_NAME}=${sealedCookie}; Path=/; Secure; SameSite=Lax; Expires=${date.toUTCString()}`,
     Location: "/",
   });
   res.end();

@@ -1,31 +1,50 @@
 <template>
   <div>
-    <div v-if="user">
-      <span
-        >Welcome, <a href="/api/auth/me">{{ user.nickname }}</a> |
-        <a href="/api/auth/logout">Logout</a></span
-      >
-      <img
-        class="rounded-full"
-        :src="user.picture"
-        height="64"
-        width="64"
-        alt="avatar"
-      />
+    <div class="grid">
+      <div class="col-12">
+        <Menubar :model="items">
+          <template #start>
+            <img
+              alt="logo"
+              src="https://www.primefaces.org/primevue/img/logo.d32bce0e.svg"
+              height="40"
+              class="mr-2"
+            />
+          </template>
+          <template #end>
+            <div v-if="user">
+              <span class="m-2">
+                Welcome, <a href="/api/auth/me">{{ user.nickname }}</a> |
+                <a href="/api/auth/logout">Logout</a>
+              </span>
+              <Avatar :image="user.picture" shape="circle" />
+            </div>
+            <div v-else>
+              <a href="/api/auth/login">Login</a>
+            </div>
+          </template>
+        </Menubar>
+        <Panel>
+          <slot />
+        </Panel>
+      </div>
     </div>
-    <div v-else>
-      <a href="/api/auth/login">Login</a>
-    </div>
-    <NuxtLink to="/">Home</NuxtLink>
-    <br />
-    <NuxtLink to="/about">About</NuxtLink>
-    <br />
-    {{ user }}
-    <slot></slot>
   </div>
 </template>
 
-<script setup>
-const user = useState("user");
-// console.log("layout", user.value);
+<script setup lang="ts">
+  const user = useUser();
+
+  const items = [
+    {
+      label: "Home",
+      icon: "pi pi-fw pi-home",
+      to: "/"
+    },
+    {
+      label: "About",
+      icon: "pi pi-fw pi-file",
+      to: "/about"
+    }
+  ];
 </script>
