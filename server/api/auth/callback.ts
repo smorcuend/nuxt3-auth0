@@ -1,6 +1,6 @@
-import config from "#config";
 import Iron from "@hapi/iron";
 import * as jose from "jose";
+import url from 'url'
 
 export default async (req, res) => {
   const {
@@ -9,24 +9,26 @@ export default async (req, res) => {
     AUTH0_CLIENT_ID,
     AUTH0_CLIENT_SECRET,
     AUTH0_COOKIE_NAME,
-  } = config;
+  } = process.env;
 
-  const params = new URLSearchParams(req.url);
+  var query = url.parse(req.url, true).query;
+  const params = new URLSearchParams(JSON.stringify(query));
 
   if (params.get("error")) {
     throw new Error(params.get("error"));
   }
+  const body = JSON.stringify({
+    grant_type: "authorization_code",
+    client_id: AUTH0_CLIENT_ID,
+    client_secret: AUTH0_CLIENT_SECRET,
+    code: params.get("code"),
+    redirect_uri: `${AUTH0_BASE_URL}/api/auth/callback`,
+  }).toString()
 
   const data = await fetch(`${AUTH0_ISSUER_BASE_URL}/oauth/token`, {
     method: "POST",
     headers: { "Content-type": "application/json" },
-    body: JSON.stringify({
-      grant_type: "authorization_code",
-      client_id: AUTH0_CLIENT_ID,
-      client_secret: AUTH0_CLIENT_SECRET,
-      code: params.get("code"),
-      redirect_uri: `${AUTH0_BASE_URL}/api/auth/callback`,
-    }).toString(),
+    body
   });
 
   const { access_token, id_token, scope, expires_in, token_type } =

@@ -25,7 +25,10 @@
   </div>
 </template>
 
-<script setup>
-const user = useState("user");
-// console.log("layout", user.value);
+<script setup lang="ts">
+const user = useUser();
 </script>
+
+<style lang="scss">
+@import "../assets/styles/layout.scss";
+</style>

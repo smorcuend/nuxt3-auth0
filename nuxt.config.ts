@@ -1,4 +1,4 @@
-import { defineNuxtConfig } from "nuxt3";
+import { defineNuxtConfig } from "nuxt";
 
 const {
   AUTH0_SECRET,
@@ -12,7 +12,10 @@ const {
 
 // https://v3.nuxtjs.org/docs/directory-structure/nuxt.config
 export default defineNuxtConfig({
-  privateRuntimeConfig: {
+  typescript: {
+    shim: false,
+  },
+  runtimeConfig: {
     AUTH0_SECRET,
     AUTH0_BASE_URL: AUTH0_BASE_URL || process.env.URL,
     AUTH0_ISSUER_BASE_URL,
@@ -21,20 +24,16 @@ export default defineNuxtConfig({
     AUTH0_AUDIENCE,
     AUTH0_COOKIE_NAME,
   },
-  nitro: {
-    preset: "lambda",
-    esbuild: {
-      options: {},
-    },
-  },
   build: {
-    postcss: {
-      postcssOptions: {
-        plugins: {
-          tailwindcss: {},
-          autoprefixer: {},
-        },
-      },
-    },
+    transpile: [
+      'primevue'
+    ],
   },
+  // css
+  css: [
+    "primevue/resources/themes/lara-light-teal/theme.css",
+    "primevue/resources/primevue.css",
+    "primeflex/primeflex.css",
+    "primeicons/primeicons.css",
+  ],
 });

@@ -1,0 +1,148 @@
+.layout-topbar {
+  height: 4rem;
+  z-index: 10;
+  width: 100%;
+  // padding: 2px;
+  padding-left: 1rem;
+  background-color: var(--surface-card);
+  transition: left $transitionDuration;
+  display: flex;
+  flex-direction: row;
+  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.02), 0px 0px 2px rgba(0, 0, 0, 0.05), 0px 1px 4px rgba(0, 0, 0, 0.08);
+  flex-shrink: 0;
+
+  .layout-menu-logo {
+    display: flex;
+    align-items: center;
+    color: var(--surface-900);
+    font-size: 1.5rem;
+    font-weight: 500;
+    border-radius: 12px;
+
+    img {
+      height: 1rem;
+      padding: 5px px;
+      margin: 1rem auto;
+    }
+  }
+
+
+  .layout-topbar-button {
+    text-align: center;
+    align-self: flex-start;
+    color: var(--text-color-secondary);
+    border-radius: 50%;
+    width: 3rem;
+    height: inherit;
+    cursor: pointer;
+    transition: background-color $transitionDuration;
+
+    &:hover {
+      color: var(--text-primary);
+      background-color: var(--surface-hover);
+    }
+
+    &:focus {
+      @include focused();
+    }
+
+    i {
+      font-size: 1.5rem;
+    }
+
+    span {
+      font-size: 1rem;
+      display: none;
+    }
+  }
+
+  .layout-topbar-breadcrumb {
+    align-self: flex-start;
+    background: transparent;
+    display: flex;
+    .p-component {
+      padding-top: 20px;
+      border: 0;
+    }
+  }
+  .layout-topbar-menu {
+    // align-self: flex-end;
+    border: 0 none;
+    display: flex;
+    .p-component {
+      background-color: transparent;
+      &:hover {
+        background-color: #0d9488;
+      }
+      border: 0;
+    }
+  }
+
+  .layout-topbar-logo {
+    display: flex;
+    align-items: center;
+    color: var(--surface-900);
+    font-size: 1.5rem;
+    font-weight: 500;
+    width: 300px;
+    border-radius: 12px;
+
+    img {
+      height: 2.5rem;
+      margin-right: 0.5rem;
+    }
+
+    &:focus {
+      @include focused();
+    }
+  }
+
+  .layout-menu-button {
+    margin-left: 1rem;
+    &:focus {
+      box-shadow:none;
+    }
+  }
+
+  .layout-topbar-menu-button {
+    // display: none;
+    color: var(--text-color-secondary);
+
+    i {
+      font-size: 1.25rem;
+    }
+  }
+
+  .layout-topbar-menu {
+    margin: 0 0 0 auto;
+    padding: 0;
+    list-style: none;
+    display: flex;
+
+    .layout-topbar-button {
+      margin-left: 1rem;
+    }
+  }
+}
+
+@media (max-width: 991px) {
+  .layout-topbar {
+    justify-content: flex-start;
+
+    .layout-topbar-logo {
+      width: auto;
+      order: 2;
+    }
+
+    .layout-menu-button {
+      margin-left: 0;
+      order: 0;
+    }
+
+    .layout-topbar-menu-button {
+      display: inline-flex;
+      margin-left: 0;
+      order: 3;
+    }
+  }
+}
