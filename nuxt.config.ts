@@ -1,19 +1,17 @@
 import { defineNuxtConfig } from "nuxt";
 
 const {
-  AUTH0_SECRET,
   AUTH0_BASE_URL,
   AUTH0_ISSUER_BASE_URL,
   AUTH0_CLIENT_ID,
   AUTH0_CLIENT_SECRET,
   AUTH0_AUDIENCE,
-  AUTH0_COOKIE_NAME,
+  AUTH0_COOKIE_NAME
 } = process.env;
 
 // https://v3.nuxtjs.org/docs/directory-structure/nuxt.config
 export default defineNuxtConfig({
   app: {
-
     head: {
       charset: "utf-8",
       viewport: "width=device-width, initial-scale=1",
@@ -25,27 +23,25 @@ export default defineNuxtConfig({
           content: "Nuxt3 + Auth0"
         }
       ],
-      link: [
-        { rel: "icon", type: "image/x-icon", href: "/favicon.ico" }
-      ]
-    },
+      link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }]
+    }
   },
   typescript: {
-    shim: false,
+    shim: false
   },
   runtimeConfig: {
-    AUTH0_SECRET,
     AUTH0_BASE_URL: AUTH0_BASE_URL || process.env.URL,
     AUTH0_ISSUER_BASE_URL,
     AUTH0_CLIENT_ID,
     AUTH0_CLIENT_SECRET,
     AUTH0_AUDIENCE,
     AUTH0_COOKIE_NAME,
+    public: {
+      AUTH0_COOKIE_NAME
+    }
   },
   build: {
-    transpile: [
-      'primevue'
-    ],
+    transpile: ["primevue"]
   },
   // css
   css: [
@@ -56,6 +52,6 @@ export default defineNuxtConfig({
   ],
   components: {
     global: true,
-    dirs: ['~/components']
-  },
+    dirs: ["~/components"]
+  }
 });

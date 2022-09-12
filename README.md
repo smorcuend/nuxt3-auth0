@@ -33,6 +33,8 @@ Make sure to install the dependencies
 yarn install
 ```
 
+Rename .env.example as .env and set environment values
+
 ## Development
 
 Start the development server on http://localhost:3000

@@ -1,9 +1,9 @@
 import Iron from "@hapi/iron";
 import { getCookie } from 'h3'
 
-export default async (req, res) => {
+export default defineEventHandler(async (event) => {
   const { AUTH0_COOKIE_NAME, AUTH0_CLIENT_SECRET } = process.env;
-  const cookie = getCookie(req, AUTH0_COOKIE_NAME)
+  const cookie = getCookie(event.req, AUTH0_COOKIE_NAME)
 
   if (cookie != null) {
     const session = await Iron.unseal(
@@ -11,6 +11,6 @@ export default async (req, res) => {
       AUTH0_CLIENT_SECRET,
       Iron.defaults
     );
-    req.session = session;
+    event.context.session = session;
   }
-};
+});

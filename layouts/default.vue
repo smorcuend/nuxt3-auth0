@@ -45,6 +45,11 @@
       label: "About",
       icon: "pi pi-fw pi-file",
       to: "/about"
+    },
+    {
+      label: "Profile",
+      icon: "pi pi-fw pi-user",
+      to: "/profile"
     }
   ];
 </script>

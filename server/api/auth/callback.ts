@@ -4,7 +4,7 @@ import * as Iron from '@hapi/iron'
 // import { createRemoteJWKSet, jwtVerify } from 'jose'
 import * as jose from 'jose'
 
-export default async (req, res) => {
+export default defineEventHandler(async (event) => {
   const {
     AUTH0_BASE_URL,
     AUTH0_ISSUER_BASE_URL,
@@ -13,7 +13,7 @@ export default async (req, res) => {
     AUTH0_COOKIE_NAME,
   } = process.env;
 
-  const query = parse(req.url, true).query
+  const query = parse(event.req.url, true).query
 
   if (query?.error || !query.code) {
     throw new Error(String(query.message))
@@ -61,9 +61,9 @@ export default async (req, res) => {
   const date = new Date();
   date.setDate(date.getDate() + 1);
 
-  res.writeHead(302, {
+  event.res.writeHead(302, {
     "Set-cookie": `${AUTH0_COOKIE_NAME}=${sealedCookie}; Path=/; Secure; SameSite=Lax; Expires=${date.toUTCString()}`,
     Location: "/",
   });
-  res.end();
-};
+  event.res.end();
+});
