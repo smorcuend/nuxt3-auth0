@@ -1,8 +1,6 @@
 import { parse } from 'node:url'
 import * as Iron from '@hapi/iron'
-
-// import { createRemoteJWKSet, jwtVerify } from 'jose'
-import * as jose from 'jose'
+import { createRemoteJWKSet, jwtVerify } from 'jose'
 
 export default defineEventHandler(async (event) => {
   const {
@@ -11,7 +9,7 @@ export default defineEventHandler(async (event) => {
     AUTH0_CLIENT_ID,
     AUTH0_CLIENT_SECRET,
     AUTH0_COOKIE_NAME,
-  } = process.env;
+  } = process.env
 
   const query = parse(event.req.url, true).query
 
@@ -19,7 +17,7 @@ export default defineEventHandler(async (event) => {
     throw new Error(String(query.message))
   }
   const body = JSON.stringify({
-    grant_type: "authorization_code",
+    grant_type: 'authorization_code',
     client_id: AUTH0_CLIENT_ID,
     client_secret: AUTH0_CLIENT_SECRET,
     code: query.code,
@@ -27,21 +25,18 @@ export default defineEventHandler(async (event) => {
   }).toString()
 
   const data = await fetch(`${AUTH0_ISSUER_BASE_URL}/oauth/token`, {
-    method: "POST",
-    headers: { "Content-type": "application/json" },
-    body
-  });
+    method: 'POST',
+    headers: { 'Content-type': 'application/json' },
+    body,
+  })
 
-  const { access_token, id_token, scope, expires_in, token_type } =
-    await data.json();
+  const { access_token, id_token, scope, expires_in, token_type } = await data.json()
 
-  const JWKS = jose.createRemoteJWKSet(
-    new URL(`${AUTH0_ISSUER_BASE_URL}/.well-known/jwks.json`)
-  );
+  const JWKS = createRemoteJWKSet(new URL(`${AUTH0_ISSUER_BASE_URL}/.well-known/jwks.json`))
 
-  const { payload: user } = await jose.jwtVerify(id_token, JWKS, {
+  const { payload: user } = await jwtVerify(id_token, JWKS, {
     issuer: `${AUTH0_ISSUER_BASE_URL}/`,
-  });
+  })
 
   const cookie = {
     user,
@@ -50,20 +45,16 @@ export default defineEventHandler(async (event) => {
     scope,
     expires_in,
     token_type,
-  };
+  }
 
-  const sealedCookie = await Iron.seal(
-    cookie,
-    AUTH0_CLIENT_SECRET,
-    Iron.defaults
-  );
+  const sealedCookie = await Iron.seal(cookie, AUTH0_CLIENT_SECRET, Iron.defaults)
 
-  const date = new Date();
-  date.setDate(date.getDate() + 1);
+  const date = new Date()
+  date.setDate(date.getDate() + 1)
 
   event.res.writeHead(302, {
-    "Set-cookie": `${AUTH0_COOKIE_NAME}=${sealedCookie}; Path=/; Secure; SameSite=Lax; Expires=${date.toUTCString()}`,
-    Location: "/",
-  });
-  event.res.end();
-});
+    'Set-cookie': `${AUTH0_COOKIE_NAME}=${sealedCookie}; Path=/; Secure; SameSite=Lax; Expires=${date.toUTCString()}`,
+    Location: '/',
+  })
+  event.res.end()
+})

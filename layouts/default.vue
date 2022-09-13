@@ -24,7 +24,7 @@
             </div>
           </template>
         </Menubar>
-        <Panel>
+        <Panel :header="route.name.toString()">
           <slot />
         </Panel>
       </div>
@@ -33,23 +33,25 @@
 </template>
 
 <script setup lang="ts">
-  const user = useUser();
+const user = useUser()
+const route = useRoute()
 
-  const items = [
-    {
-      label: "Home",
-      icon: "pi pi-fw pi-home",
-      to: "/"
-    },
-    {
-      label: "About",
-      icon: "pi pi-fw pi-file",
-      to: "/about"
-    },
-    {
-      label: "Profile",
-      icon: "pi pi-fw pi-user",
-      to: "/profile"
-    }
-  ];
+const items = [
+  {
+    label: 'Home',
+    icon: 'pi pi-fw pi-home',
+    to: '/',
+  },
+  {
+    label: 'About',
+    icon: 'pi pi-fw pi-file',
+    to: '/about',
+  },
+  {
+    label: 'Profile',
+    icon: 'pi pi-fw pi-user',
+    to: '/profile',
+    visible: user.value != null
+  },
+]
 </script>
