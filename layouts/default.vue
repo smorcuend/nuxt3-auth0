@@ -2,7 +2,7 @@
   <div>
     <div class="grid">
       <div class="col-12">
-        <Menubar :model="items">
+        <Menubar :model="items" >
           <template #start>
             <img
               alt="logo"

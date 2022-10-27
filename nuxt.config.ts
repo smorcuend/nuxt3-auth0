@@ -1,5 +1,3 @@
-import { defineNuxtConfig } from "nuxt";
-
 const {
   AUTH0_BASE_URL,
   AUTH0_ISSUER_BASE_URL,

@@ -1,6 +1,6 @@
 import { getCookie } from 'h3'
 export default defineEventHandler((event) => {
-  const { AUTH0_COOKIE_NAME } = process.env
+  const { AUTH0_COOKIE_NAME } = useRuntimeConfig()
   const token = getCookie(event, AUTH0_COOKIE_NAME)
   const URL = event.req.url
   if (URL.includes('/api/auth/')) {

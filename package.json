@@ -11,11 +11,11 @@
   },
   "devDependencies": {
     "@auth0/auth0-spa-js": "^1.21.0",
-    "jose": "4.2.1",
-    "nuxt": "^3.0.0-rc.9",
+    "jose": "~4.10.3",
+    "nuxt": "^3.0.0-rc.12",
     "primeflex": "^3.2.0",
-    "primeicons": "^5.0.0",
-    "primevue": "^3.17.0",
+    "primeicons": "^6.0.0",
+    "primevue": "^3.18.0",
     "sass": "^1.54.0",
     "sass-loader": "^13.0.0",
     "typescript": "^4.8.3"
