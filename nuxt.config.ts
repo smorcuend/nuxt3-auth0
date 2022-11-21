@@ -7,7 +7,6 @@ const {
   AUTH0_COOKIE_NAME
 } = process.env;
 
-// https://v3.nuxtjs.org/docs/directory-structure/nuxt.config
 export default defineNuxtConfig({
   app: {
     head: {
@@ -47,9 +46,5 @@ export default defineNuxtConfig({
     "primevue/resources/primevue.css",
     "primeicons/primeicons.css",
     "primeflex/primeflex.css"
-  ],
-  components: {
-    global: true,
-    dirs: ["~/components"]
-  }
+  ]
 });

@@ -2,14 +2,16 @@
 
 Authenticated server-side rendering with Nuxt 3 and Auth0 API server middleware
 
+![Screenshot](assets/custom-server-authentication.png)
+
 ## Features
-- [💚 Nuxt 3](https://v3.nuxtjs.org) - SSR, ESR, File-based routing, components auto importing, modules, etc. Are you new in Nuxt3? We recommend to look at the [documentation](https://v3.nuxtjs.org/docs).
+- [💚 Nuxt 3](https://nuxt.com) - SSR, ESR, File-based routing, components auto importing, modules, etc. Are you new in Nuxt3? We recommend to look at the [documentation](https://nuxt.com/docs).
 
 - 🔥 The `<script setup>` syntax
 
-- 🚠 Auth0 SDK Authentication services
+- 🚠 Auth0 SDK Authentication services. Auth0 Federated Identity Management.
 
-- :lock: Hapi iron module for encapsulated tokens on Cookies 
+- Hapi iron module for encapsulated tokens on Cookies 
 
 - 🚀 The PrimeVue for styled components
 
@@ -24,6 +26,12 @@ We recommend using [VS Code](https://code.visualstudio.com/) with [Volar](https:
 ## Auth0 setup
 First of all, you need to create Auth0 acount and SDK setup. 
 https://auth0.com/docs/quickstart/spa/vanillajs
+
+You need to create `.env` file with this content from Auth0 project (security credentials should never be shared):
+```bash
+cp .env.example .env
+```
+
 
 ## Setup
 
@@ -51,10 +59,10 @@ Build the application for production:
 yarn build
 ```
 
-Checkout the [deployment documentation](https://v3.nuxtjs.org/docs/deployment).
+Checkout the [deployment documentation](https://nuxt.com/docs/getting-started/deployment).
 
 ## References
-- We recommend to look at the [Nuxt3](https://v3.nuxtjs.org).
+- We recommend to look at the [Nuxt3](https://nuxt.com).
 - [Auth0 API](https://auth0.com/docs/api/authentication)
 - [Primevue](https://www.primefaces.org/primevue/#/)
 - [Hapi Iron](https://hapi.dev/module/iron/)

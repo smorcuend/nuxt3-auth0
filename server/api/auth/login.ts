@@ -3,8 +3,8 @@ export default defineEventHandler(async (event) => {
     useRuntimeConfig()
 
   const loginUrl = `${AUTH0_ISSUER_BASE_URL}/authorize?response_type=code&client_id=${AUTH0_CLIENT_ID}&redirect_uri=${AUTH0_BASE_URL}/api/auth/callback&scope=openid%20profile%20email&audience=${AUTH0_AUDIENCE}`
-  event.res.writeHead(302, {
+  event.node.res.writeHead(302, {
     Location: loginUrl
   })
-  event.res.end()
+  event.node.res.end()
 })

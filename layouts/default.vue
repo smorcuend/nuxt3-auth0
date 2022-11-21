@@ -2,7 +2,7 @@
   <div>
     <div class="grid">
       <div class="col-12">
-        <Menubar :model="items" >
+        <Menubar :model="items">
           <template #start>
             <img
               alt="logo"
@@ -14,8 +14,7 @@
           <template #end>
             <div v-if="user">
               <span class="m-2">
-                Welcome, <a href="/api/auth/me">{{ user.nickname }}</a> |
-                <a href="/api/auth/logout">Logout</a>
+                Welcome, {{ user.nickname }} | <a href="/api/auth/logout">Logout</a>
               </span>
               <Avatar :image="user.picture" shape="circle" />
             </div>
@@ -24,7 +23,7 @@
             </div>
           </template>
         </Menubar>
-        <Panel :header="route.name.toString()">
+        <Panel :header="route.name?.toString()">
           <slot />
         </Panel>
       </div>
@@ -40,18 +39,18 @@ const items = [
   {
     label: 'Home',
     icon: 'pi pi-fw pi-home',
-    to: '/',
+    to: '/'
   },
   {
     label: 'About',
     icon: 'pi pi-fw pi-file',
-    to: '/about',
+    to: '/about'
   },
   {
     label: 'Profile',
     icon: 'pi pi-fw pi-user',
     to: '/profile',
     visible: user.value != null
-  },
+  }
 ]
 </script>

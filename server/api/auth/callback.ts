@@ -23,19 +23,19 @@ export default defineEventHandler(async (event) => {
       code: query.code,
       redirect_uri: `${AUTH0_BASE_URL}/api/auth/callback`
     }).toString()
-  
+
     const data = await fetch(`${AUTH0_ISSUER_BASE_URL}/oauth/token`, {
       method: 'POST',
       headers: { 'Content-type': 'application/json' },
       body
     })
     const { access_token, id_token, scope, expires_in, token_type } = await data.json()
-  
+
     const JWKS = createRemoteJWKSet(new URL(`${AUTH0_ISSUER_BASE_URL}/.well-known/jwks.json`))
     const { payload: user } = await jwtVerify(id_token, JWKS, {
       issuer: `${AUTH0_ISSUER_BASE_URL}/`
     })
-  
+
     const cookie = {
       user,
       id_token,
@@ -44,19 +44,18 @@ export default defineEventHandler(async (event) => {
       expires_in,
       token_type
     }
-  
+
     const sealedCookie = await Iron.seal(cookie, AUTH0_CLIENT_SECRET, Iron.defaults)
-  
+
     const date = new Date()
     date.setDate(date.getDate() + 1)
-  
-    event.res.writeHead(302, {
+
+    event.node.res.writeHead(302, {
       'Set-cookie': `${AUTH0_COOKIE_NAME}=${sealedCookie}; Path=/; Secure; SameSite=Lax; Expires=${date.toUTCString()}`,
       Location: '/'
     })
-    event.res.end()
-
+    event.node.res.end()
   } catch (error) {
-    event.res.errored
+    event.node.res.errored
   }
 })
