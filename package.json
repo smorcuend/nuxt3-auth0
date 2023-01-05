@@ -1,10 +1,14 @@
 {
+  "name": "nuxt3-auth0",
+  "repository": "nuxt3-auth0",
   "private": true,
+  "license": "MIT",
   "scripts": {
-    "dev": "nuxt dev",
     "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "start": "node .output/server/index.mjs"
+    "postinstall": "nuxt prepare"
   },
   "dependencies": {
     "@hapi/iron": "^7.0.0"
@@ -13,10 +17,12 @@
     "@auth0/auth0-spa-js": "^2.0.0",
     "jose": "~4.11.0",
     "nuxt": "^3.0.0",
-    "primeflex": "^3.2.0",
+    "primeflex": "^3.3.0",
     "primeicons": "^6.0.0",
-    "primevue": "^3.18.0",
-    "sass": "^1.54.0",
-    "sass-loader": "^13.0.0"
+    "primevue": "^3.21.0",
+    "sass": "^1.57.0"
+  },
+  "engines": {
+    "node": "^14.16.0 || ^16.10.0 || ^17.0.0 || ^18.0.0 || ^19.0.0"
   }
 }

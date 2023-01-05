@@ -4,18 +4,13 @@
       <div class="col-12">
         <Menubar :model="items">
           <template #start>
-            <img
-              alt="logo"
-              src="https://www.primefaces.org/primevue/img/logo.d32bce0e.svg"
-              height="40"
-              class="mr-2"
-            />
+            <h3>Nuxt3-Auth0</h3>
           </template>
           <template #end>
-            <div v-if="user">
-              <span class="m-2">
+            <div v-if="user" class="flex align-items-center">
+              <p class="mr-2">
                 Welcome, {{ user.nickname }} | <a href="/api/auth/logout">Logout</a>
-              </span>
+              </p>
               <Avatar :image="user.picture" shape="circle" />
             </div>
             <div v-else>
