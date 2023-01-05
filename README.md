@@ -1,8 +1,10 @@
 # Nuxt 3 Minimal Starter with Auth0 Authentication integrated + PrimeVue
+![Capture](public/nuxt3-auth0_capture.gif)
 
-Authenticated server-side rendering with Nuxt 3 and Auth0 API server middleware
-
-![Screenshot](assets/custom-server-authentication.png)
+#### Authenticated server-side rendering with Nuxt 3 and Auth0 API server middleware
+<p align="center">
+  <img width="auto" height="500" src="public/custom-server-authentication.png">
+</p>
 
 ## Features
 - [💚 Nuxt 3](https://nuxt.com) - SSR, ESR, File-based routing, components auto importing, modules, etc. Are you new in Nuxt3? We recommend to look at the [documentation](https://nuxt.com/docs).
