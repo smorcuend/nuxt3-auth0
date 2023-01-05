@@ -5,22 +5,22 @@ const {
   AUTH0_CLIENT_SECRET,
   AUTH0_AUDIENCE,
   AUTH0_COOKIE_NAME
-} = process.env;
+} = process.env
 
 export default defineNuxtConfig({
   app: {
     head: {
-      charset: "utf-8",
-      viewport: "width=device-width, initial-scale=1",
+      charset: 'utf-8',
+      viewport: 'width=device-width, initial-scale=1',
       meta: [
-        { name: "viewport", content: "width=device-width, initial-scale=1" },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         {
-          hid: "description",
-          name: "description",
-          content: "Nuxt3 + Auth0"
+          hid: 'description',
+          name: 'description',
+          content: 'Nuxt3 + Auth0'
         }
       ],
-      link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }]
+      link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
     }
   },
   typescript: {
@@ -38,13 +38,14 @@ export default defineNuxtConfig({
     }
   },
   build: {
-    transpile: ["primevue"]
+    transpile: ['primevue']
   },
   // css
   css: [
-    "primevue/resources/themes/lara-light-teal/theme.css",
-    "primevue/resources/primevue.css",
-    "primeicons/primeicons.css",
-    "primeflex/primeflex.css"
+    'primevue/resources/themes/lara-light-teal/theme.css',
+    'primevue/resources/primevue.css',
+    'primeicons/primeicons.css',
+    'primeflex/primeflex.css',
+    'assets/css/main.css'
   ]
-});
+})

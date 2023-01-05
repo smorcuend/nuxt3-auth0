@@ -45,16 +45,23 @@ export default defineEventHandler(async (event) => {
       token_type
     }
 
-    const sealedCookie = await Iron.seal(cookie, AUTH0_CLIENT_SECRET, Iron.defaults)
-
     const date = new Date()
     date.setDate(date.getDate() + 1)
 
-    event.node.res.writeHead(302, {
-      'Set-cookie': `${AUTH0_COOKIE_NAME}=${sealedCookie}; Path=/; Secure; SameSite=Lax; Expires=${date.toUTCString()}`,
-      Location: '/'
+    const sealedCookie = await Iron.seal(cookie, AUTH0_CLIENT_SECRET, Iron.defaults)
+
+    setCookie(event, AUTH0_COOKIE_NAME, sealedCookie, {
+      path: '/',
+      secure: true,
+      sameSite: 'lax',
+      expires: date
     })
-    event.node.res.end()
+
+    event.node.res
+      .writeHead(302, {
+        Location: '/'
+      })
+      .end()
   } catch (error) {
     event.node.res.errored
   }

@@ -8,7 +8,7 @@ export default defineEventHandler((event) => {
   if (event.node.req.url?.includes('/api/')) {
     if (Boolean(token) !== true) {
       event.node.res.statusCode = 401
-      event.node.res.end('You must be signed in to access to resource.')
+      event.node.res.writeHead(401).end('You must be signed in to access to resource.')
     }
   }
 })

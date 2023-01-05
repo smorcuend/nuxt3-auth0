@@ -1,4 +1,3 @@
-import { defineNuxtPlugin } from '#app'
 import PrimeVue from 'primevue/config'
 import Button from 'primevue/button'
 import Menubar from 'primevue/menubar'
@@ -7,6 +6,7 @@ import Panel from 'primevue/panel'
 import Card from 'primevue/card'
 import Avatar from 'primevue/avatar';
 import Image from 'primevue/image'
+import ScrollPanel from 'primevue/scrollpanel';
 
 export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.use(PrimeVue, { ripple: true })
@@ -17,6 +17,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.component('Card', Card)
   nuxtApp.vueApp.component('Avatar', Avatar)
   nuxtApp.vueApp.component('Image', Image)
+  nuxtApp.vueApp.component('ScrollPanel', ScrollPanel)
 
   //other components that you need
 })
